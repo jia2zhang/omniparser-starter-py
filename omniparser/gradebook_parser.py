@@ -19,41 +19,65 @@ import pandas
 import os
 import statistics
 
+# def calculate_average_grade_from_csv(my_csv_filepath):
+#     df = pandas.read_csv(my_csv_filepath)
+
+#     rows = df.to_dict("records")
+
+#     grades = [r["final_grade"] for r in rows] #> [86.7, 95.1, 60.3, 99.8, 97.4, 85.5, 97.2, 98.0, 93.9, 92.5]
+
+#     avg_grade = statistics.mean(grades)
+
+#     return avg_grade #90.64 #"OOPS"
+
 # Parsing CSV file - PANDAS WAY
 def calculate_average_grade_from_csv(my_csv_filepath):
     gradebook = pandas.read_csv(my_csv_filepath)
-    rows = gradebook.to_dict("records")
-    grades = [r["final_grade"] for r in rows]
-    print(grades)
-    avg_grade = statistics.mean(grades)
+    
+    # # Method 1
+    # rows = gradebook.to_dict("records")
+    # grades = [r["final_grade"] for r in rows]
+    # avg_grade = statistics.mean(grades)
+    
+    # # Method 2
+    # grades = gradebook["final_grade"].to_list()
+    # avg_grade = statistics.mean(grades)
+    
+    # # Method 3
+    avg_grade = gradebook["final_grade"].mean()
+
     return avg_grade
 
 if __name__ == "__main__":
     print("PARSING SOME EXAMPLE GRADEBOOK FILES HERE...")
-    gradebook_filepath = os.path.join(os.path.dirname(__file__),"..","data","gradebook_2019.csv")
+    gradebook_filepath = os.path.join(os.path.dirname(__file__), "..", "data", "gradebook_2019.csv")
+    # print(gradebook_filepath)
+    # breakpoint()
     avg = calculate_average_grade_from_csv(gradebook_filepath)
     print(avg)
 
 # CHECK-IN: avg for 2018 is 83.64, 2019 is 90.64
 
 ## TODO: debug the json parsing portion below:
-URL = os.path.join(os.path.dirname(__file__),"..","data","gradebook_2019.json")
-gradebook_json = pandas.read_json(URL, orient='records')
-print(gradebook_json.students["finalgrade"])
+# URL = os.path.join(os.path.dirname(__file__),"..","data","gradebook_2019.json")
+# gradebook_json = pandas.read_json(URL, orient='records')
+# print(gradebook_json.students["finalgrade"])
 
 # Parsing JSON file  - PANDAS WAY
-def calculate_average_grade_from_json(my_json_filepath):
-    gradebook = pandas.read_json(my_json_filepath)
-    print(type(gradebook))
-    rows = gradebook.read_json(_, orient='records')
-    print(type(rows["finalgrade"]))
+# def calculate_average_grade_from_json(my_json_filepath):
+#     gradebook = pandas.read_json(my_json_filepath)
+#     print(type(gradebook))
+#     rows = gradebook.read_json(_, orient='records')
+#     print(type(rows["finalgrade"]))
+
     # grades = [r["finalgrade"] for r in rows]
     # print(grades)
     # avg_grade = statistics.mean(grades)
     # print(avg_grade)
 
-if __name__ == "__main__":
-    print("PARSING SOME EXAMPLE GRADEBOOK FILES HERE...")
-    gradebook_filepath = os.path.join(os.path.dirname(__file__),"..","data","gradebook_2019.json")
+# if __name__ == "__main__":
+#     print("PARSING SOME EXAMPLE GRADEBOOK FILES HERE...")
+#     gradebook_filepath = os.path.join(os.path.dirname(__file__),"..","data","gradebook_2019.json")
+
     # avg = calculate_average_grade_from_json(gradebook_filepath)
     # print(avg)
