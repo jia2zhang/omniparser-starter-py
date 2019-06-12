@@ -72,9 +72,14 @@ def calculate_average_grade_from_json(x):
         file_contents = f.read()
 
     gradebook = json.loads(file_contents)
+
     #print(type(gradebook))
     #print(gradebook)
-    
+
+    students = gradebook["students"]
+    grades = [s["finalGrade"] for s in students]
+    avg_grade = statistics.mean(grades)
+    return avg_grade
 
 
     # grades = [r["finalgrade"] for r in rows]
@@ -85,7 +90,7 @@ def calculate_average_grade_from_json(x):
 if __name__ == "__main__":
     print("PARSING SOME EXAMPLE GRADEBOOK JSON FILES HERE...")
     gradebook_filepath = os.path.join(os.path.dirname(__file__),"..","data","gradebook_2018.json")
-    print(gradebook_filepath)
-    print(os.path.isfile(gradebook_filepath))
+    # print(gradebook_filepath)
+    # print(os.path.isfile(gradebook_filepath))
     avg = calculate_average_grade_from_json(gradebook_filepath)
     print(avg)
